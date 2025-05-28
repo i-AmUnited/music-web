@@ -114,10 +114,110 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="grad" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(255,255,255,0);stop-opacity:0" /></radialGradient></defs><circle cx="20" cy="30" r="2" fill="url(%23grad)" opacity="0.6"><animate attributeName="opacity" values="0.6;1;0.6" dur="3s" repeatCount="indefinite"/></circle><circle cx="80" cy="20" r="1.5" fill="url(%23grad)" opacity="0.4"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="4s" repeatCount="indefinite"/></circle><circle cx="60" cy="70" r="1" fill="url(%23grad)" opacity="0.5"><animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/></circle></svg>') repeat;
             background-size: 200px 200px;
         }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+         .carousel-image.active {
+            opacity: 1;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-controls:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
+        }
+
+        .pause-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .pause-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
     </style>
 </head>
 <body class="bg-black text-white overflow-x-hidden">
-    <section class="md:h-screen py-10 relative flex items-center bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 overflow-hidden">
+    <section class="lg:h-screen py-10 relative flex items-center bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 overflow-hidden">
         <!-- Animated Background -->
         <div class="absolute inset-0 bg-sparkle animate-sparkle pointer-events-none"></div>
         
@@ -126,12 +226,12 @@
             <div class="opacity-0 animate-slide-in-left">
                 <!-- Category -->
                 <div class="text-red-400 text-sm font-semibold uppercase tracking-wider mb-4 opacity-0 animate-fade-in-up-1">
-                    Singer • Songwriter • Producer
+                    Quran Reciter • Azakir Babalowo • Song Producer
                 </div>
                 
                 <!-- Artist Name -->
                 <h1 class="text-4xl font-black leading-none mb-6 bg-gradient-to-r from-white via-red-400 to-cyan-400 bg-clip-text text-transparent opacity-0 animate-fade-in-up-2">
-                    Artist name
+                    Sheikh Ustaz Tijani Haroon
                 </h1>
                 
                 <!-- Description -->
@@ -196,11 +296,48 @@
             <div class="opacity-0 animate-slide-in-right">
                 <div class="relative w-full max-w-lg mx-auto">
                     <!-- Artist Image -->
-                    <div class="artist-image aspect-square border rounded-3xl relative overflow-hidden shadow-2xl shadow-black/50 animate-float">
-                        <img src="./image_1.jpg" alt="">
-                        <!-- Play Icon -->
-                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-white/90 rounded-full flex items-center justify-center">
-                            <div class="text-3xl text-gray-800">♪</div>
+                    <div class="artist-image aspect-square md:h-[450px] rounded-2xl relative overflow-hidden shadow-2xl shadow-black/50 animate-float">
+                        <div class="carousel-container">
+                            <!-- Images -->
+                            <div class="carousel-image active"
+                                style="background-image: url('./image_1.jpg');">
+                            </div>
+                            <div class="carousel-image"
+                                style="background-image: url('./image_2.jpg');">
+                            </div>
+                            <div class="carousel-image"
+                                style="background-image: url('./image_3.jpg');">
+                            </div>
+                            <div class="carousel-image"
+                                style="background-image: url('./image_4.jpg');">
+                            </div>
+                            <div class="carousel-image"
+                                style="background-image: url('./image_5.jpg');">
+                            </div>
+                            <div class="carousel-image"
+                                style="background-image: url('./image_6.jpg');">
+                            </div>
+                            <div class="carousel-image"
+                                style="background-image: url('./image_7.jpg');">
+                            </div>
+
+        <!-- Navigation Controls -->
+        <button class="carousel-controls prev text-black font-black">‹</button>
+        <button class="carousel-controls next text-black font-black">›</button>
+
+        <!-- Pause/Play Button -->
+        <button class="pause-btn" id="pauseBtn">⏸️ Pause</button>
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <div class="indicator active" data-slide="0"></div>
+            <div class="indicator" data-slide="1"></div>
+            <div class="indicator" data-slide="2"></div>
+            <div class="indicator" data-slide="3"></div>
+            <div class="indicator" data-slide="4"></div>
+            <div class="indicator" data-slide="5"></div>
+            <div class="indicator" data-slide="6"></div>
+        </div>
                         </div>
                     </div>
                     
@@ -263,6 +400,104 @@
                 });
             });
         });
+    
+        class AutoCarousel {
+            constructor() {
+                this.images = document.querySelectorAll('.carousel-image');
+                this.indicators = document.querySelectorAll('.indicator');
+                this.prevBtn = document.querySelector('.prev');
+                this.nextBtn = document.querySelector('.next');
+                this.pauseBtn = document.getElementById('pauseBtn');
+                
+                this.currentIndex = 0;
+                this.isPlaying = true;
+                this.intervalId = null;
+                
+                this.init();
+            }
+
+            init() {
+                this.startAutoPlay();
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                // Navigation buttons
+                this.prevBtn.addEventListener('click', () => this.goToPrevious());
+                this.nextBtn.addEventListener('click', () => this.goToNext());
+                
+                // Pause/Play button
+                this.pauseBtn.addEventListener('click', () => this.togglePlayPause());
+                
+                // Indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // Pause on hover
+                const container = document.querySelector('.carousel-container');
+                container.addEventListener('mouseenter', () => {
+                    if (this.isPlaying) this.pause();
+                });
+                container.addEventListener('mouseleave', () => {
+                    if (this.isPlaying) this.startAutoPlay();
+                });
+            }
+
+            startAutoPlay() {
+                this.intervalId = setInterval(() => {
+                    this.goToNext();
+                }, 5000);
+            }
+
+            pause() {
+                if (this.intervalId) {
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+                }
+            }
+
+            togglePlayPause() {
+                this.isPlaying = !this.isPlaying;
+                
+                if (this.isPlaying) {
+                    this.startAutoPlay();
+                    this.pauseBtn.textContent = '⏸️ Pause';
+                } else {
+                    this.pause();
+                    this.pauseBtn.textContent = '▶️ Play';
+                }
+            }
+
+            goToSlide(index) {
+                // Remove active class from current image and indicator
+                this.images[this.currentIndex].classList.remove('active');
+                this.indicators[this.currentIndex].classList.remove('active');
+                
+                // Update current index
+                this.currentIndex = index;
+                
+                // Add active class to new image and indicator
+                this.images[this.currentIndex].classList.add('active');
+                this.indicators[this.currentIndex].classList.add('active');
+            }
+
+            goToNext() {
+                const nextIndex = (this.currentIndex + 1) % this.images.length;
+                this.goToSlide(nextIndex);
+            }
+
+            goToPrevious() {
+                const prevIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+                this.goToSlide(prevIndex);
+            }
+        }
+
+        // Initialize carousel when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new AutoCarousel();
+        });
+    
     </script>
 </body>
 </html>
